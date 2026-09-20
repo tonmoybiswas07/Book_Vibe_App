@@ -1,7 +1,9 @@
 import { IBook } from "@/app/types";
 import Image from "next/image";
-import { FaBookOpen, FaHeart, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { notFound } from "next/navigation";
+import ReadBooksBtn from "@/app/components/ReadBooks/page";
+import WishListBtn from "@/app/components/WishList/page";
 
 const PromiseData = async (): Promise<IBook[]> => {
   const res = await fetch("http://localhost:3000/booksData.json");
@@ -175,16 +177,10 @@ const BookDetailPage = async ({ params }: BookDetailPageProps) => {
               {/* Buttons */}
               <div className="mt-8 flex flex-wrap gap-3">
                 {/* Read */}
-                <button className="flex items-center gap-2 rounded-xl border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-800 transition-all duration-300 hover:border-gray-900 hover:bg-gray-900 hover:text-white">
-                  <FaBookOpen />
-                  Read
-                </button>
+                <ReadBooksBtn book={book} />
 
                 {/* Wishlist */}
-                <button className="flex items-center gap-2 rounded-xl bg-[#4db3ce] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#319bb8]">
-                  <FaHeart />
-                  Wishlist
-                </button>
+               <WishListBtn book={book}></WishListBtn>
               </div>
             </div>
           </div>

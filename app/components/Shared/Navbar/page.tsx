@@ -1,5 +1,6 @@
+
 import Link from "next/link";
-import React from "react";
+
 
 const NavPage = () => {
   const links = (
@@ -12,10 +13,10 @@ const NavPage = () => {
       </li>
 
       <li>
-        <a>Listed Books</a>
+        <Link href="/ListesBooks">Listed Books</Link>
       </li>
       <li>
-        <a>Pages to Read</a>
+        <Link href="/PagesToRead">Pages to Read</Link>
       </li>
     </>
   );
