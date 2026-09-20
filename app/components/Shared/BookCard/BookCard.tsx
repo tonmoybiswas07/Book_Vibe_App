@@ -1,5 +1,6 @@
 import { IBook } from "@/app/types";
 import Image from "next/image";
+import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 
 interface BookCardProps {
@@ -87,9 +88,11 @@ const BookCard = ({ book }: BookCardProps) => {
           Published {book.yearOfPublishing}
         </span>
 
-        <button className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-green-600">
-          Details
-        </button>
+        <Link href={`/Books/${book.bookId}`}>
+          <button className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-green-600">
+            Details
+          </button>
+        </Link>
       </div>
     </div>
   );

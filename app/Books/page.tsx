@@ -1,5 +1,5 @@
 import React from "react";
-import BookCard from "../BookCard/BookCard";
+import BookCard from "../components/Shared/BookCard/BookCard";
 import { IBook } from "@/app/types";
 
 const PromiseData = async () => {

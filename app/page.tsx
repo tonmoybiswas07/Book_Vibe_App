@@ -1,6 +1,6 @@
 import React from 'react';
 import BannerPage from './components/Banner/page';
-import BooksPage from './components/Shared/Books/page';
+import BooksPage from './Books/page';
 
 const page = () => {
   return (
