@@ -6,6 +6,7 @@ import { booksContext } from "../context/BooksProvider";
 import ReadListCard from "../components/ReadListCard/ReadListCard";
 import { IBook } from "../types";
 
+
 const ListedBooks = () => {
   const context = useContext(booksContext);
   const [sortOption, setSortOption] = useState<"rating" | "pages" | "year">("rating");
@@ -34,6 +35,7 @@ const ListedBooks = () => {
 
   const shortedReadBooks = sortBooks(readBooks, sortOption);
   const shortedWishlistBooks = sortBooks(wishlist, sortOption);
+ 
 
   return (
     <div className="container mx-auto">
