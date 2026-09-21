@@ -27,7 +27,7 @@ const BooksPage = async () => {
           Our Books
         </h1>
       </div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
         {dataPromise.map((book: IBook) => (
           <BookCard key={book.bookId} book={book} />
         ))}

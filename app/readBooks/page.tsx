@@ -72,7 +72,7 @@ const ReadBooks = () => {
     
     
   return (
-    <div className="flex flex-col items-center justify-center gap-10 p-10">
+    <div className="flex flex-col items-center justify-center gap-10 p-10 min-h-screen">
       {readBooks.length===0?<p className="text-center text-xl font-bold">No read books to display.</p>:
         <BarChart
         style={{
