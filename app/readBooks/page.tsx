@@ -73,7 +73,8 @@ const ReadBooks = () => {
     
   return (
     <div className="flex flex-col items-center justify-center gap-10 p-10">
-      <BarChart
+      {readBooks.length===0?<p className="text-center text-xl font-bold">No read books to display.</p>:
+        <BarChart
         style={{
           width: "100%",
           maxWidth: "700px",
@@ -98,6 +99,7 @@ const ReadBooks = () => {
         </Bar>
         {/* <RechartsDevtools /> */}
       </BarChart>
+      }
     </div>
   );
 };
