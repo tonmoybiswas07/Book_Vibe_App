@@ -58,13 +58,11 @@ const BookCard = ({ book }: BookCardProps) => {
 
       {/* Bottom Info */}
       <div className="flex items-center justify-between">
-        
         {/* Category */}
         <div>
           <p className="text-xs uppercase tracking-wide text-gray-400">
             Category
           </p>
-
           <p className="mt-1 text-sm font-semibold text-gray-700">
             {book.category}
           </p>
@@ -75,7 +73,6 @@ const BookCard = ({ book }: BookCardProps) => {
           <p className="text-xs uppercase tracking-wide text-gray-400">
             Pages
           </p>
-
           <p className="mt-1 text-sm font-semibold text-gray-700">
             {book.totalPages}
           </p>
