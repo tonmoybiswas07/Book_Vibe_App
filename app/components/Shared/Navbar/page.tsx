@@ -16,7 +16,7 @@ const NavPage = () => {
         <Link href="/ListesBooks">Listed Books</Link>
       </li>
       <li>
-        <Link href="/PagesToRead">Pages to Read</Link>
+        <Link href="/readBooks">Pages to Read</Link>
       </li>
     </>
   );
