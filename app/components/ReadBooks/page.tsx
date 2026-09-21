@@ -7,7 +7,13 @@ import { FaBookOpen } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const ReadBooksBtn = ({ book }: { book: IBook }) => {
-  const { readBooks, setReadBooks } = useContext(booksContext);
+  const context = useContext(booksContext);
+
+if (!context) {
+  throw new Error("booksContext must be used inside BooksProvider");
+}
+
+const { readBooks, setReadBooks } = context;
 
   const handleReadBook = () => {
     setReadBooks([...readBooks, book]);
