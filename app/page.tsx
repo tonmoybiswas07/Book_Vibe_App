@@ -1,14 +1,6 @@
-import React from 'react';
-import BannerPage from './components/Banner/page';
-import BooksPage from './Books/page';
+import Banner from "./components/Banner/Banner";
+import Catalog from "./components/Catalog";
 
-const page = () => {
-  return (
-    <div>
-      <BannerPage/>
-      <BooksPage></BooksPage>
-    </div>
-  );
-};
-
-export default page;
+export default function Home() {
+  return <><Banner /><Catalog /></>;
+}

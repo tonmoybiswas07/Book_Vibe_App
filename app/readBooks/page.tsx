@@ -1,107 +1,37 @@
-
 "use client";
-import { useContext } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  BarShapeProps,
-  LabelList,
-  Label,
-  LabelProps,
-  Tooltip,
-} from "recharts";
-import { booksContext } from "../context/BooksProvider";
-import { IBook } from "../types";
-import { read } from "fs";
 
+import Link from "next/link";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { FiArrowUpRight, FiBarChart2 } from "react-icons/fi";
+import { useBooks } from "../context/BooksProvider";
 
-// #region Sample data
-
-
-// #endregion
-
-const colors = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  "#FF8042",
-  "red",
-  "pink",
-  "black",
-];
-const getPath = (x: number, y: number, width: number, height: number) => {
-  return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3}
-  ${x + width / 2}, ${y}
-  C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${x + width}, ${y + height}
-  Z`;
-};
-const TriangleBar = (props: BarShapeProps) => {
-  const { x, y, width, height, index } = props;
-
-  const color = colors[index % colors.length];
+export default function ReadingStats() {
+  const { readBooks } = useBooks();
+  const pages = readBooks.reduce((total, book) => total + book.totalPages, 0);
+  const genres = new Set(readBooks.map((book) => book.category)).size;
+  const data = readBooks.map((book) => ({ name: book.bookName, pages: book.totalPages }));
 
   return (
-    <path
-      strokeWidth={props.isActive ? 5 : 0}
-      d={getPath(Number(x), Number(y), Number(width), Number(height))}
-      stroke={color}
-      fill={color}
-      style={{
-        transition: "stroke-width 0.3s ease-out",
-      }}
-    />
+    <section className="shell interior">
+      <div className="page-intro"><span className="eyebrow">YOUR READING</span><h1>Reading stats</h1><p>See what you’ve read and how the pages add up.</p></div>
+      <dl className="stats-grid">
+        <div><dt>Books read</dt><dd>{readBooks.length}</dd></div>
+        <div><dt>Pages read</dt><dd>{pages.toLocaleString("en-US")}</dd></div>
+        <div><dt>Genres explored</dt><dd>{genres}</dd></div>
+      </dl>
+      {data.length ? (
+        <div className="chart-panel">
+          <h2>Pages by book</h2>
+          <BarChart responsive layout="vertical" style={{ width: "100%", height: Math.max(230, data.length * 48) }} data={data} accessibilityLayer margin={{ right: 16, bottom: 8 }}>
+            <CartesianGrid horizontal={false} stroke="#e7ddd2" strokeDasharray="4 4" />
+            <XAxis type="number" allowDecimals={false} tick={{ fill: "#62594f", fontSize: 12 }} />
+            <YAxis type="category" dataKey="name" width="auto" tickFormatter={(name: string) => name.length > 18 ? `${name.slice(0, 17)}…` : name} tick={{ fill: "#62594f", fontSize: 11 }} />
+            <Tooltip cursor={{ fill: "#f2e7db" }} />
+            <Bar dataKey="pages" name="Pages" fill="#a64530" radius={[0, 6, 6, 0]} barSize={23} />
+          </BarChart>
+          <details><summary>View page counts as a list</summary><ul>{data.map((book) => <li key={book.name}>{book.name} · {book.pages} pages</li>)}</ul></details>
+        </div>
+      ) : <div className="empty"><FiBarChart2 /><h2>No reading stats yet</h2><p>Mark a book as read to start tracking your pages.</p><Link className="button primary" href="/Books">Explore books <FiArrowUpRight /></Link></div>}
+    </section>
   );
-};
-const CustomColorLabel = (props: LabelProps) => {
-  const fill = colors[(props.index ?? 0) % colors.length];
-  return <Label {...props} fill={fill} />;
-};
-
-const ReadBooks = () => {
-        const {readBooks}=useContext(booksContext) as {readBooks:IBook[]};
-
-    const data=readBooks.map((book,index)=>({
-        name: book.bookName,
-        uv: book.totalPages,
-       
-    }));
-
-    
-    
-  return (
-    <div className="flex flex-col items-center justify-center gap-10 p-10 min-h-screen">
-      {readBooks.length===0?<p className="text-center text-xl font-bold">No read books to display.</p>:
-        <BarChart
-        style={{
-          width: "100%",
-          maxWidth: "700px",
-          maxHeight: "70vh",
-          aspectRatio: 1.618,
-        }}
-        responsive
-        data={data}
-        margin={{
-          top: 20,
-          right: 0,
-          left: 0,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid />
-        <Tooltip cursor={{ fillOpacity: 0.5 }} />
-        <XAxis dataKey="name" />
-        <YAxis width="auto" />
-        <Bar dataKey="uv" shape={TriangleBar} activeBar>
-          <LabelList content={CustomColorLabel} position="top" />
-        </Bar>
-        {/* <RechartsDevtools /> */}
-      </BarChart>
-      }
-    </div>
-  );
-};
-
-export default ReadBooks;
+}
