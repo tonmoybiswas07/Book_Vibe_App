@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Book Vibe
 
-## Getting Started
+Book Vibe is a reading tracker for discovering books, building a wishlist, and keeping track of what you’ve read.
 
-First, run the development server:
+## Features
 
-```bash
+- Search the catalog by title, author, genre, or tag. Filter by genre and sort by rating, page count, or publication year.
+- Open a book to see its cover, review, rating, and publication details.
+- Save books to your wishlist, mark them as read, or remove them from your shelf.
+- Track books read, total pages, and genres explored, with a chart of pages per book.
+
+The catalog ships with the app as [a JSON file](public/booksData.json). Your shelf is saved in your browser’s local storage and is specific to that browser.
+
+## Getting started
+
+You’ll need Node.js 20.9 or later and npm. No environment variables are required.
+
+From the project directory, run:
+
+```sh
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server. |
+| `npm run lint` | Check the project with ESLint. |
+| `npm run build` | Create a production build. |
+| `npm start` | Serve the production build after it has been created. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+The app uses the Next.js App Router, React, TypeScript, Tailwind CSS, and Recharts.
 
-To learn more about Next.js, take a look at the following resources:
+| Route | Source | Page |
+| --- | --- | --- |
+| `/` | [app/page.tsx](app/page.tsx) | Home banner and catalog |
+| `/Books` | [app/Books/page.tsx](app/Books/page.tsx) | Catalog |
+| `/Books/[bookId]` | [Book detail page](app/Books/%5BbookId%5D/page.tsx) | Book details and shelf actions |
+| `/ListesBooks` | [Shelf page](app/ListesBooks/page.tsx) | Read list and wishlist |
+| `/readBooks` | [Reading stats page](app/readBooks/page.tsx) | Reading totals and chart |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The [root layout](app/layout.tsx) renders the shared navigation and footer. [BooksProvider](app/context/BooksProvider.tsx) manages shelf state, and [globals.css](app/globals.css) contains the shared styles.
